@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+    <title>Nova</title>
+    <link rel="icon" href="./favicon.svg" />
+    <link rel="stylesheet" href="./styles.css?v=6" />
+    <style>
+      [hidden] { display: none !important; }
+      html, body { height: 100%; margin: 0; overflow: hidden; }
+      #gate, #app {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: var(--vv-offset, 0px);
+        bottom: var(--keyboard-bottom, 0px);
+        bottom: max(env(keyboard-inset-bottom, 0px), var(--keyboard-bottom, 0px));
+        height: auto;
+        overflow: hidden;
+      }
+      #gate { z-index: 5; overflow: auto; }
+    </style>
+  </head>
+  <body>
+    <section class="gate" id="gate" hidden>
+      <form class="gate-card" id="login-form">
+        <div class="welcome-mark" data-icon="sparkles" data-size="24" data-stroke="1.7"></div>
+        <p class="eyebrow">你的 AI 思考伙伴</p>
+        <h1>输入口令</h1>
+        <p class="gate-copy">对话只保存在这台设备上。</p>
+        <label for="password">口令</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required />
+        <p class="form-error" id="login-error" role="alert"></p>
+        <button type="submit">进入</button>
+      </form>
+    </section>
+
+    <div class="app-shell" id="app" hidden>
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <div class="brand-mark" data-icon="sparkles" data-size="19" data-stroke="2"></div>
+          <span>NOVA</span>
+          <button class="icon-button sidebar-close" id="sidebar-close" type="button" aria-label="关闭侧边栏" data-icon="close"></button>
+        </div>
+        <button class="new-chat" id="new-chat" type="button">
+          <span data-icon="plus" data-size="18"></span>
+          <span>开启新对话</span>
+          <span class="shortcut">⌘ K</span>
+        </button>
+        <div class="sidebar-section">
+          <p class="section-label">最近对话</p>
+          <form class="history-search" id="history-search" hidden>
+            <input id="history-query" type="search" placeholder="搜索对话" aria-label="搜索对话" />
+          </form>
+          <nav id="history" aria-label="最近对话"></nav>
+        </div>
+        <div class="sidebar-footer">
+          <button class="profile" id="logout" type="button">
+            <span class="avatar">退</span>
+            <span class="profile-text">
+              <strong>退出登录</strong>
+              <small>结束这次访问</small>
+            </span>
+            <span data-icon="chevron" data-size="17"></span>
+          </button>
+        </div>
+      </aside>
+      <button class="sidebar-backdrop" id="sidebar-backdrop" type="button" aria-label="关闭侧边栏"></button>
+      <main class="main-panel">
+        <header class="topbar">
+          <button class="icon-button menu-button" id="menu-button" type="button" aria-label="打开侧边栏" data-icon="panel"></button>
+          <div class="model-name">
+            <span>Qwen 3.8</span>
+            <span class="status-dot"></span>
+          </div>
+          <button class="icon-button" id="search-button" type="button" aria-label="搜索" data-icon="search"></button>
+        </header>
+        <section class="conversation" id="conversation"></section>
+        <div class="composer-wrap">
+          <form class="composer" id="composer">
+            <textarea id="message" aria-label="输入消息" placeholder="向 Nova 发送消息..." rows="1"></textarea>
+            <div class="composer-actions">
+              <span class="composer-hint">Enter 发送 · Shift + Enter 换行</span>
+              <button class="send-button" id="send" type="submit" aria-label="发送消息" disabled data-icon="send" data-size="18" data-stroke="2"></button>
+            </div>
+          </form>
+          <p class="form-error" id="chat-error" role="alert"></p>
+          <p class="disclaimer">Nova 可能会出错，请核查重要信息。</p>
+        </div>
+      </main>
+    </div>
+    <script src="./app.js?v=6"></script>
+  </body>
+</html>
